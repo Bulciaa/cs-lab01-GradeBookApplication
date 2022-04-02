@@ -18,9 +18,10 @@ namespace GradeBook.GradeBooks
 
         public bool IsWeighted { get; set; }
 
-        public BaseGradeBook(string name)
+        public BaseGradeBook(string name, bool isWeight)
         {
             Name = name;
+            IsWeighted = isWeight;
             Students = new List<Student>();
         }
 
@@ -110,18 +111,75 @@ namespace GradeBook.GradeBooks
 
         public virtual double GetGPA(char letterGrade, StudentType studentType)
         {
-            switch (letterGrade)
+            var weight = IsWeighted;
+            var Honors = StudentType.Honors;
+            var DualEnrolled = StudentType.DualEnrolled;
+            if (weight == true)
             {
-                case 'A':
-                    return 4;
-                case 'B':
-                    return 3;
-                case 'C':
-                    return 2;
-                case 'D':
-                    return 1;
-                case 'F':
-                    return 0;
+                if (studentType == Honors)
+                {
+                    switch (letterGrade)
+                    {
+                        case 'A':
+                            return 5;
+                        case 'B':
+                            return 4;
+                        case 'C':
+                            return 3;
+                        case 'D':
+                            return 2;
+                        case 'F':
+                            return 1;
+                    }
+                }
+                else if (studentType == DualEnrolled)
+                {
+                    switch (letterGrade)
+                    {
+                        case 'A':
+                            return 5;
+                        case 'B':
+                            return 4;
+                        case 'C':
+                            return 3;
+                        case 'D':
+                            return 2;
+                        case 'F':
+                            return 1;
+                    }
+                }
+                else
+                {
+                    switch (letterGrade)
+                    {
+                        case 'A':
+                            return 4;
+                        case 'B':
+                            return 3;
+                        case 'C':
+                            return 2;
+                        case 'D':
+                            return 1;
+                        case 'F':
+                            return 0;
+                    }
+                }
+            }
+            else
+            {
+                switch (letterGrade)
+                {
+                    case 'A':
+                        return 4;
+                    case 'B':
+                        return 3;
+                    case 'C':
+                        return 2;
+                    case 'D':
+                        return 1;
+                    case 'F':
+                        return 0;
+                }
             }
             return 0;
         }
